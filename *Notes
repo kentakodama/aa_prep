@@ -1,0 +1,48 @@
+GIT
+
+git init creates a secret file .git file that logs all changes
+  this is included in all downloaded versions already but must do
+  by my own
+
+git commit creates a version of a file and stores it in git file
+
+git log command gives history of all git commits
+
+git reset 'id' (resets to a specific version indicated by the id)
+
+git status shows all changes
+
+git commit means save file
+
+
+GIT HUB
+
+remote is a place on the internet cloud with files and folders of code
+remotes have addresses URL => github.com/calvinfenf/Ruby.git
+
+###########
+local machine
+
+git remote add origin <url>
+git push origin master
+
+git -m means message, it can be anything
+
+
+to push to git hub,
+git remote add calvingithub https://github.com/kentakodama/example1.git
+
+
+
+
+
+
+
+
+RECURSION
+
+
+base case is a condition that tells recursion to stop
+
+def print_hello
+end

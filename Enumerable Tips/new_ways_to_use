@@ -1,0 +1,19 @@
+p 'count method'
+#three ways to use
+[1, 2, 3, 4, 5].count #=> 5
+[1, 2, 3, 4, 5].count(2) #=> 1
+[1, 2, 3, 4, 5].count {|int| int.odd?} #=> 3
+
+p 'select vs reject methods'
+#select returns all true values
+arr = [1, 2, 3, 4, 5, 6, 7]
+p arr.select(&:odd?)
+#reject returns all false values
+p arr.reject(&:odd?)
+
+p 'with_index method'
+#it's possible to chain a with_index method onto other enumerables
+arr = [1, 2, 3, 4]
+p arr.map.with_index {|el, index| el-index}
+
+p arr.select.with_index {|el, i| i.odd?}

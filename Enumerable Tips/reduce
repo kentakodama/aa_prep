@@ -1,0 +1,102 @@
+p 'This is how reduce really works'
+[1, 2, 3].reduce(:+)
+[1, 2, 3].reduce {|accumulator, element| accumulator + element}
+#the first element is assigned as the accumulator
+#the second element is added to the accumulator which is then reassigned
+#to the accumulator
+
+#below is functionally the same as .reduce(:+) method
+def my_sum(arr)
+  accumulator = arr.first # store first element as accumulator
+
+  arr.each_index do |idx|
+    next if idx == 0 # skip first element: it's already the accumulator
+    accumulator += arr[idx] # increment accumulator by current element
+  end
+
+  accumulator
+end
+
+############################################
+#can get more creative and customizable with reduce
+#this reduce adds all odd elements to the first element
+def sum_first_and_odds(arr)
+  arr.reduce do |acc, el|
+    if el.odd?
+      acc + el
+    else
+      # this else statement is necessary because otherwise the return value of
+      # the block would be nil if the element is even. Thus the interpreter
+      # would reassign acc to nil.
+      acc
+    end
+  end
+end
+
+sum_first_and_odds([1, 2, 3, 4, 15, 12, 9, 3])
+###################################################
+p 'reduce can also have a custom starting accumulator as an argument'
+[6, 2].reduce(48) {|acc, el| acc / el}
+# this means divide 48 by 6, then divide that by 2
+################
+p 'reduce can also have an array as a starting accumulator'
+[24, 6, 2].reduce([48]) {|acc, el| acc << acc.last / el}
+# this means take the last element in the accumulator array and divide by each element, then push the elemetn onto array
+
+
+###################################################
+p 'Not just numbers: Can be used to keep track of longest word, etc'
+#example 1
+def longest_word(str)
+  str.split.reduce do |longest, word|
+    #longest is the accumulator in this case
+    if word.length > longest.length
+      word #this is assigned the accumulator
+    else
+      longest #this is assigned the accumulator
+    end
+  end
+end
+
+#example 2
+def for_cs_sake(string)
+  words = string.split(' ')
+  c_words = words.select {|word| include_c?(word)}
+  return '' if c_words.empty?
+  c_words.reduce do |shortest, word|
+    if c_distance(shortest) > c_distance(word)
+      word
+    else
+      shortest
+    end
+  end
+
+end
+
+def include_c?(word)
+  return true if word.downcase.include?('c')
+  false
+end
+
+def c_distance(word)
+  word.reverse.each_char.with_index do |char, i|
+    return i if char.downcase == 'c'
+  end
+end
+
+p for_cs_sake('cat inc catapult turn')
+
+
+
+########################################
+p 'Can also be used to get the factors of a num'
+
+def factors(num)
+  (1..num).reduce([]) do |factors, i|
+    if num % i == 0
+      factors << i
+    else
+      factors
+    end
+  end
+end
